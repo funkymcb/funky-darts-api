@@ -1,0 +1,32 @@
+db.players.insertMany(
+    [
+        {
+            _id: "1",
+            firstName: "Matt",
+            lastName: "Smith",
+            username: "dr.who",
+            passwordHash: "$2a$04$ivUN.oM9bIS37S8foRL7H.ALXvLc0R7q3vTnAUGlM08qJKG7SOn8O",
+        },
+        {
+            _id: "2",
+            firstName: "Amelia",
+            lastName: "Pond",
+            username: "amy",
+            passwordHash: "$2a$04$JU2sDFddmAc1M8ow8xaT1OFFxBpACCvH6wFaiWYIzLAGPYClXOcO2",
+        },
+    ]
+)
+
+db.games.insertOne(
+    {
+        type: "301",
+        players: [
+            {
+                player_id: "1"
+            },
+            {
+                player_id: "2"
+            },
+        ],
+    }
+)

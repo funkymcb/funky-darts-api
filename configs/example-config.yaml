@@ -1,0 +1,2 @@
+mongo:
+  uri: "mondogb://localhost:27017"

@@ -1,32 +1,14 @@
 # FunkyDarts api
 Backend for FunkyDarts web-app
 
-### Ideas:
-mongo database will store users and game sessions
-game sessions will be used for stats
+## local testing:
+run mongo docker instance:
+`docker run --rm -it -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=secret --name mongo mongo`
 
-GameTable:
-|id|type|player-ids|finished|score-id|winner|
-|-:|---:|----------|--------|-------:|------|
-|1 |301 |1,2       |true    |1       |2     |
-|2 |elem|1,2,3     |false   |2       |      |
+exec into container:
+`docker exec -it mongo sh`
 
-ScoreTable:
-|id|player-id|turn|dart1|dart2|dart3|
-|-:|--------:|:---|----:|----:|----:|
-| 1|1        |1   |18   |t-20 |d-1  |
-| 1|2        |1   |5    |t-19 |b    |
-| 1|1        |2   |1    |d-b  |5    |
-...
-
-
-PlayerTable:
-|id|first-name|last-name|username|password-hash|games|
-|-:|----------|---------|--------|-------------|----:|
-|1 |Max       |Musterman|ma.mu   |adi9ham3ef   |1    |
-|2 |          |         |        |             |     |
-...
-
-
-dart    >   turn    >   leg     >   set
-            3 darts     n turns     n legs
+start mongosh as admin:
+`mongosh -u admin -p secret`
+`use funkyDarts`
+`db.games.insert(sample-data)`
