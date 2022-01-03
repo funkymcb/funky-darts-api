@@ -13,6 +13,7 @@ import (
 
 func main() {
 	configPath := flag.String("config", "./configs/config.yaml", "/path/to/config.yaml")
+	flag.Parse()
 
 	config, err := config.LoadConfig(*configPath)
 	if err != nil {
