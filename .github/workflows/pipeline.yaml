@@ -1,0 +1,45 @@
+name: Build and Push
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  VERSION: 0.0.1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+      # test application
+    - name: Test go app
+      run: make test
+
+      # build app
+    - name: Build go app
+      run: make build
+
+      # login against docker registry
+    - name: Log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      run: |
+        docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+    # Build Docker image (don't push on PR)
+    - name: Build Docker image
+      if: github.event_name != 'pull_request'
+      run: |
+        docker build -t ghcr.io/${{ env.IMAGE_NAME }}:${{ env.VERSION }} .
+
+    # Push Docker image (don't push on PR)
+    - name: Push Docker image
+      if: github.event_name != 'pull_request'
+      run: |
+        docker push ghcr.io/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+

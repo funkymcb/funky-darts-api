@@ -1,3 +1,4 @@
+VERSION ?= 0.0.1
 GOTEST=go test
 GOCOVER=go tool cover
 
@@ -43,8 +44,7 @@ ifeq ($(PLATFORM),Win)
   override PLATFORM=windows
 endif
 
-VERSION ?= latest
-DEFAULTIMAGE ?= finodigital.azurecr.io/enigma/api:$(VERSION)
+DEFAULTIMAGE ?= ghcr.io/funkymcb/funky-darts-api:$(VERSION)
 
 .PHONY: all
 
