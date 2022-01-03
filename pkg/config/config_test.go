@@ -18,7 +18,7 @@ func TestLoadConfig(t *testing.T) {
 	}{
 		{
 			name:    "Basic",
-			args:    args{"./fixtures/config.yaml"},
+			args:    args{"./fixtures/basic-config.yaml"},
 			wantErr: false,
 		},
 		{
