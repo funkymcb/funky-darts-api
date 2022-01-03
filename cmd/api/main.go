@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 
@@ -10,10 +11,10 @@ import (
 	"github.com/savsgio/atreugo/v11"
 )
 
-var configPath = "./configs/config.yaml"
-
 func main() {
-	config, err := config.LoadConfig(configPath)
+	configPath := flag.String("config", "./configs/config.yaml", "/path/to/config.yaml")
+
+	config, err := config.LoadConfig(*configPath)
 	if err != nil {
 		log.Fatalln("config could not be loaded from path:", configPath)
 	}
