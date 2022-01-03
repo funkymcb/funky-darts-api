@@ -35,5 +35,5 @@ func main() {
 
 func initAPIRoutes(server *atreugo.Atreugo) {
 	server.GET("/live", handler.LivenessProbe)
-	server.GET("/test", handler.Test)
+	server.GET("/api/test", handler.Test)
 }
