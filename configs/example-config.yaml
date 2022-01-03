@@ -1,2 +1,2 @@
-mongo:
-  uri: "mondogb://localhost:27017"
+api:
+  port: 8080
