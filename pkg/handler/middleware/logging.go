@@ -9,7 +9,7 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func Logging(ctx *atreugo.RequestCtx) error {
+func (m *Middleware) Logging(ctx *atreugo.RequestCtx) error {
 
 	// skip liveness- readinessprobes
 	if Skip(string(ctx.RequestURI())) {

@@ -1,2 +1,6 @@
 api:
   port: 8080
+keycloak:
+  host: 'http://my.keycloak.server'
+  realm: 'myRealm'
+  client-id: 'my-client'

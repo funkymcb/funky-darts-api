@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/Nerzal/gocloak/v10"
 	"github.com/funkymcb/funky-darts-api/pkg/config"
 	"github.com/funkymcb/funky-darts-api/pkg/handler"
 	"github.com/funkymcb/funky-darts-api/pkg/handler/middleware"
@@ -24,7 +25,11 @@ func main() {
 		Addr: fmt.Sprintf(":%d", config.API.Port),
 	})
 
-	server.UseAfter(middleware.Logging)
+	keycloakClient := gocloak.NewClient(config.Keycloak.Host)
+
+	m := middleware.NewMiddleware(config, keycloakClient)
+	server.UseBefore(m.Logging)
+	server.UseBefore(m.Auth)
 
 	initAPIRoutes(server)
 

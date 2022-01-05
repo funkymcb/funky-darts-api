@@ -9,12 +9,20 @@ import (
 
 // Config represents the base level config file
 type Config struct {
-	API API `yaml:"api"`
+	API      API      `yaml:"api"`
+	Keycloak Keycloak `yaml:"keycloak"`
 }
 
 // API represents all api configurations
 type API struct {
 	Port int16 `yaml:"port"`
+}
+
+// Keycloak represents all keycloak configs
+type Keycloak struct {
+	Host     string `yaml:"host"`
+	Realm    string `yaml:"realm"`
+	ClientID string `yaml:"client-id"`
 }
 
 // LoadConfig will load config yaml if path is specified correctly
