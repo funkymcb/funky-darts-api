@@ -15,6 +15,11 @@ func (m *Middleware) Auth(ctx *atreugo.RequestCtx) error {
 	}
 
 	authTokenBytes := ctx.Request.Header.Peek("Authorization")
+	if len(authTokenBytes) <= 0 {
+		err := fmt.Errorf("authorization header is missing")
+		ctx.Error(err.Error(), http.StatusUnauthorized)
+		return err
+	}
 	authToken := strings.Replace(string(authTokenBytes), "Bearer", "", 1)
 
 	token, _, err := m.keycloakClient.DecodeAccessToken(
