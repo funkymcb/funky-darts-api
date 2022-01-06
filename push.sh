@@ -89,4 +89,4 @@ sed -i '' "s/$version/$upgraded_version/" .github/workflows/pipeline.yaml
 
 current_branch=$(git symbolic-ref -q HEAD)
 current_branch=$(echo "$current_branch" | sed 's/refs\/heads\///')
-git add --all && git commit -m "$message" && git push origin "$(current_branch)"
+git add --all && git commit -m "$message" && git push origin "$current_branch"
