@@ -15,9 +15,10 @@ func (m *Middleware) Auth(ctx *atreugo.RequestCtx) error {
 
 	authTokenBytes := ctx.Request.Header.Peek("Authorization")
 	if len(authTokenBytes) <= 0 {
-		err := fmt.Errorf("authorization header is missing")
-		ctx.Error(err.Error(), http.StatusUnauthorized)
-		return err
+		return ctx.ErrorResponse(
+			fmt.Errorf("authorization header is missing"),
+			http.StatusUnauthorized,
+		)
 	}
 
 	token, _, err := m.keycloakClient.DecodeAccessToken(
@@ -26,8 +27,10 @@ func (m *Middleware) Auth(ctx *atreugo.RequestCtx) error {
 		m.config.Keycloak.Realm,
 	)
 	if err != nil || !token.Valid {
-		ctx.Error(err.Error(), http.StatusUnauthorized)
-		return fmt.Errorf("invalid or expired token: %v", err)
+		return ctx.ErrorResponse(
+			fmt.Errorf("invalid or expired token: %v", err),
+			http.StatusUnauthorized,
+		)
 	}
 
 	return ctx.Next()
