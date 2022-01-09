@@ -29,6 +29,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: test
 
     steps:
     - name: Checkout repo
@@ -63,6 +64,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
     - name: Checkout repo
@@ -71,4 +73,4 @@ jobs:
     # runs reflux script which updates flux image policy with current image tag
     # and checks deployment status by polling reflux status endpoint
     - name: run reflux script
-      run: ./reflux.sh -t ${{ VERSION }} -s ${{ secrets.REFLUX_TOKEN }} -n ${{ secrets.REFLUX_NONCE }}
+      run: ./reflux.sh -t ${{ env.VERSION }} -s ${{ secrets.REFLUX_TOKEN }} -n ${{ secrets.REFLUX_NONCE }}
