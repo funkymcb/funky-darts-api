@@ -32,6 +32,7 @@ while getopts ":n:s:t:" opt; do
             ;;
         s)
             SECRET=$OPTARG
+            echo "$SECRET"
             ;;
         t)
             VERSION=$OPTARG
