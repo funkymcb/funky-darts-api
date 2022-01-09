@@ -7,11 +7,11 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  VERSION: 0.0.8
+  VERSION: 0.0.9
   GO_VERSION: 1.17
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,18 @@ jobs:
       # test application
     - name: Test go app
       run: make test
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Set up Go ${{ env.GO_VERSION }}
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ env.GO_VERSION }}
 
       # build app
     - name: Build go app
@@ -49,3 +61,13 @@ jobs:
       run: |
         docker push ghcr.io/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
+  deploy:
+    runs-on: ubuntu-latest
+
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    # runs reflux script which updates flux image policy with current image tag
+    # and checks deployment status by polling reflux status endpoint
+    - name: run reflux script
+      run: ./reflux.sh -t ${{ VERSION }} -s ${{ secrets.REFLUX_TOKEN }} -n ${{ secrets.REFLUX_NONCE }}

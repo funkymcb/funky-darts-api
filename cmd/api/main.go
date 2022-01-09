@@ -39,6 +39,7 @@ func main() {
 }
 
 func initAPIRoutes(server *atreugo.Atreugo) {
+	// basic infrastructure routes
 	server.GET("/live", handler.LivenessProbe)
 	server.GET("/api/test", handler.Test)
 }

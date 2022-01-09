@@ -71,9 +71,12 @@ read -r -a verarr <<< "$version"
 case $increment in
     "major")
         verarr[0]=$(( verarr[0]+1 ))
+        verarr[1]="0"
+        verarr[2]=0
         ;;
     "minor")
         verarr[1]=$(( verarr[1]+1 ))
+        verarr[2]=0
         ;;
     "patch")
         verarr[2]=$(( verarr[2]+1 ))
