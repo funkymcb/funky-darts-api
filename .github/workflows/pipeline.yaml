@@ -27,7 +27,7 @@ jobs:
     - name: Test go app
       run: make test
 
-  build'n'push:
+  build-n-push:
     runs-on: ubuntu-latest
     needs: test
 
