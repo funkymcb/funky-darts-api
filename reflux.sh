@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # post data
 NAMESPACE="flux-system"
 WORKLOAD="funky-darts-api"
