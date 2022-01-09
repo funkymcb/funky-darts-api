@@ -37,7 +37,7 @@ while getopts ":n:s:t:" opt; do
             VERSION=$OPTARG
             ;;
         *)
-            echo "-t flag is required"
+            echo "-n -s and -t flags are required"
             ;;
     esac
 done
