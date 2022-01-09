@@ -32,7 +32,6 @@ while getopts ":n:s:t:" opt; do
             ;;
         s)
             SECRET=$OPTARG
-            echo "$SECRET" | base64
             ;;
         t)
             VERSION=$OPTARG
