@@ -7,8 +7,10 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  VERSION: 0.0.11
+  VERSION: 0.0.12
   GO_VERSION: 1.17
+  KIND: deployment
+  NAMESPACE: funky-darts
 
 jobs:
   test:
@@ -74,4 +76,11 @@ jobs:
     # runs reflux script which updates flux image policy with current image tag
     # and checks deployment status by polling reflux status endpoint
     - name: run reflux script
-      run: ./reflux.sh -e 'prod' -t ${{ env.VERSION }} -s ${{ secrets.REFLUX_TOKEN }} -n ${{ secrets.REFLUX_NONCE }}
+      run: |
+        ./reflux.sh -e 'prod' \
+        -c ${{ secrets.REFLUX_NONCE }} \
+        -k ${{ env.KIND }} \
+        -t ${{ env.VERSION }} \
+        -n ${{ env.NAMESPACE }} \
+        -s ${{ secrets.REFLUX_TOKEN }} \
+        -w ${{ env.IMAGE_NAME }}
