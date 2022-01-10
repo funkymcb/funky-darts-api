@@ -7,9 +7,10 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  VERSION: 0.0.12
+  VERSION: 0.0.13
   GO_VERSION: 1.17
   KIND: deployment
+  WORKLOAD: funky-darts-api
   NAMESPACE: funky-darts
 
 jobs:
@@ -83,4 +84,4 @@ jobs:
         -t ${{ env.VERSION }} \
         -n ${{ env.NAMESPACE }} \
         -s ${{ secrets.REFLUX_TOKEN }} \
-        -w ${{ env.IMAGE_NAME }}
+        -w ${{ env.WORKLOAD }}
