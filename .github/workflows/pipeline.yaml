@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  VERSION: 0.0.10
+  VERSION: 0.0.11
   GO_VERSION: 1.17
 
 jobs:
@@ -65,6 +65,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build-n-push
+    environment: 'prod'
 
     steps:
     - name: Checkout repo
@@ -73,4 +74,4 @@ jobs:
     # runs reflux script which updates flux image policy with current image tag
     # and checks deployment status by polling reflux status endpoint
     - name: run reflux script
-      run: ./reflux.sh -t ${{ env.VERSION }} -s ${{ secrets.REFLUX_TOKEN }} -n ${{ secrets.REFLUX_NONCE }}
+      run: ./reflux.sh -e 'prod' -t ${{ env.VERSION }} -s ${{ secrets.REFLUX_TOKEN }} -n ${{ secrets.REFLUX_NONCE }}
